@@ -1,0 +1,159 @@
+step1:Annotation
+注解可以看做一种注释或者元数据（MetaData），可以把它插入到我们的java代码中，用来描述我们的java类，从而影响java类的行为。
+构建时指示: RetentionPolicy.SOURCE
+编译期指示: RetentionPolicy.CLASS
+运行时指示: RetentionPolicy.RUNTIME
+注解可以用于描述一个类、接口、方法、方法参数、字段、局部变量等
+//注解一个类
+@Entity
+public class Vehicle {
+    //注解一个字段
+    @Persistent
+    protected String vehicleName = null;
+    //注解一个方法
+    @Getter
+    public String getVehicleName() {
+        return this.vehicleName;
+    }
+    //注解一个参数
+    public void setVehicleName(@Optional vehicleName) {
+        this.vehicleName = vehicleName;
+    }
+
+    public List addVehicleNameToList(List names) {
+        //注解一个局部变量
+        @Optional
+        List localNames = names;
+        if(localNames == null) {
+        localNames = new ArrayList();
+        }
+        localNames.add(getVehicleName());
+        return localNames;
+    }
+}
+
+step2:一些常用的内置注解 ，注解中的每个元素定义类似于接口中的方法定义。
+ @Deprecated 表示java不赞成使用这些被描述的对象
+ @Override   一个编译时注解
+ @SuppressWarnings  使编译器忽略掉编译器警告
+step3: 自定义注解 每个元素定义包含一个数据类型和名称，
+      注解元素的数据类型可以是java基本数据类型、String、数组，但不能是复杂对象类型。
+@interface MyAnnotation {
+    String   value();
+    String   name();
+    int      age();
+    String[] newNames();
+}
+四个元注解：
+@Retention   用来定义当前注解的作用范围
+{
+	RetentionPolicy.SOURCE : 注解只存在于源码中，不会存在于.class文件中，在编译时会被忽略掉
+	RetentionPolicy.CLASS：注解只存在于.class文件中，在编译期有效，但是在运行期会被忽略掉，这也是默认范围
+	RetentionPolicy.RUNTIME
+}
+@Target      用来约束自定义注解可以注解Java的哪些元素 
+{
+	ElementType.ANNOTATION_TYPE
+	ElementType.CONSTRUCTOR
+	ElementType.FIELD
+	ElementType.LOCAL_VARIABLE
+	ElementType.METHOD
+	ElementType.PACKAGE
+	ElementType.PARAMETER
+	ElementType.TYPE
+}
+
+@Inherited 当前注解会被注解类的子类继承
+@Inherited
+public @interface MyAnnotation {
+}
+@MyAnnotation
+public class MySuperClass { ... }
+public class MySubClass extends MySuperClass { ... }
+
+
+通过反射获得Java注解信息
+
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+public @interface MyAnnotation {
+    public String name();
+    public String value();
+}	
+@MyAnnotation(name = "hello name",value = "hello value")
+public class MyClass {
+
+}
+获取类的注解信息	
+	
+public class TestAnnotation {
+    public static void main(String[] args) {
+        //通过反射获得MyClass的注解信息
+        MyAnnotation myAnnotation=MyClass.class.getAnnotation(MyAnnotation.class);
+        System.out.println(myAnnotation.name());
+        System.out.println(myAnnotation.value());
+    }
+}
+获取方法的注解信息	
+	
+public class TestAnnotation {
+    public static void main(String[] args) {
+        Method method = null;
+        try {
+            method = MyClassB.class.getMethod("method");
+            Annotation annotation = method.getAnnotation(MyAnnotation.class);
+            if (annotation !=null) {
+                MyAnnotation myAnnotation = (MyAnnotation) annotation;
+                System.out.println("name: " + myAnnotation.name());
+                System.out.println("value: " + myAnnotation.value());
+            }
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
+    }
+}
+	
+获取参数的注解信息	
+Method method = ... //obtain method object
+Annotation[][] parameterAnnotations = method.getParameterAnnotations();
+Class[] parameterTypes = method.getParameterTypes();
+
+int i=0;
+for(Annotation[] annotations : parameterAnnotations){
+  Class parameterType = parameterTypes[i++];
+
+  for(Annotation annotation : annotations){
+    if(annotation instanceof MyAnnotation){
+        MyAnnotation myAnnotation = (MyAnnotation) annotation;
+        System.out.println("param: " + parameterType.getName());
+        System.out.println("name : " + myAnnotation.name());
+        System.out.println("value: " + myAnnotation.value());
+    }
+  }
+}
+获取字段的注解信息	
+	
+Field field = ... // obtain method object
+Annotation annotation = field.getAnnotation(MyAnnotation.class);
+
+if(annotation instanceof MyAnnotation){
+    MyAnnotation myAnnotation = (MyAnnotation) annotation;
+    System.out.println("name: " + myAnnotation.name());
+    System.out.println("value: " + myAnnotation.value());
+}	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
