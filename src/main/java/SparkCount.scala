@@ -1,4 +1,8 @@
-import org.apache.spark.{SparkContext, SparkConf}
+import java.util
+
+import org.apache.spark.api.java.function.FlatMapFunction
+import org.apache.spark.api.java.{JavaRDD, JavaSparkContext, function}
+import org.apache.spark.{SparkConf, SparkContext}
 
 /**
   * Created by uc203808 on 12/25/2017.
@@ -15,5 +19,7 @@ object SparkCount {
     wordCount.foreach(println)
     sc.stop()
   }
+  //spark stand
   //c:\spark\bin>spark-submit --class SparkCount  C:\IDEA\ideaWorkspaces\scalaworkspace\SparkCount\out\artifacts\SparkCount_jar\SparkCount.jar
+
 }
