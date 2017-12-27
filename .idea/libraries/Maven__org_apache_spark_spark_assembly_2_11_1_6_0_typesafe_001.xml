@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.apache.spark:spark-assembly_2.11:1.6.0-typesafe-001">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache/spark/spark-assembly_2.11/1.6.0-typesafe-001/spark-assembly_2.11-1.6.0-typesafe-001.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache/spark/spark-assembly_2.11/1.6.0-typesafe-001/spark-assembly_2.11-1.6.0-typesafe-001-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/org/apache/spark/spark-assembly_2.11/1.6.0-typesafe-001/spark-assembly_2.11-1.6.0-typesafe-001-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

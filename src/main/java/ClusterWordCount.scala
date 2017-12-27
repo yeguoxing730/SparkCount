@@ -9,7 +9,8 @@ object ClusterWordCount {
       System.err.println("Usage: ClusterWorldCount args is null")
       System.exit(1)
     }
-    val conf = new SparkConf().setAppName("WordCount").setMaster("spark://apollo.hadoop.com:7077")
+    val conf = new SparkConf().setAppName("WordCount").setMaster("spark://10.35.47.60:7077")
+        .setJars(List("C:\\IDEA\\ideaWorkspaces\\scalaworkspace\\SparkCount\\out\\artifacts\\SparkCount_jar\\SparkCount.jar"))
       .set("spark.driver.memory", "5g")
       .set("spark.testing.memory", "471859200")
     val sc = new SparkContext(conf)
