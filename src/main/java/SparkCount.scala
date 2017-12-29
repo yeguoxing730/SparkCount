@@ -19,6 +19,9 @@ object SparkCount {
     wordCount.foreach(println)
     sc.stop()
   }
+//  def main(args:Array[Object][Object]): Unit ={
+//
+//  }
   //spark stand
   //c:\spark\bin>spark-submit --class SparkCount  C:\IDEA\ideaWorkspaces\scalaworkspace\SparkCount\out\artifacts\SparkCount_jar\SparkCount.jar
 
